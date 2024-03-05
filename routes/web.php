@@ -32,7 +32,7 @@ Route::get('/seeder', function(){
     ]);
 });
 
-Route::get('/articles/create',[ArticleController::class,'create'])->name('article.create');
+Route::get('/articles/create',[ArticleController::class,'create'])->middleware(['auth','verified'])->name('article.create');
 
-Route::post('/articles/store',[ArticleController::class,'store'])->name('article.store');
+Route::post('/articles/store',[ArticleController::class,'store'])->middleware(['auth','verified'])->name('article.store');
 

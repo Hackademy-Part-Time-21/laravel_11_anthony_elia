@@ -18,7 +18,37 @@
           <li class="nav-item">
             <a class="nav-link" href="{{route('contacts')}}">Contatti</a>
           </li>
+            @auth
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{auth()->user()->name}}
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{{route('article.create')}}">Crea Articolo</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#" onclick="event.preventDefalut(); getElementById('form-logout').submit();">Esci</a>
+              <form method="POST" action="/logout" id="form-logout">
+                @csrf
+              </form>
+              </li>
+            </ul>
+          </li>
+
+          @endauth
+          
+          @guest
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/register">Register</a>
+          </li>
+          @endguest
         </ul>
+
 
       </div>
     </div>

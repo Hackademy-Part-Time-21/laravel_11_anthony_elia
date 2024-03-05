@@ -32,7 +32,14 @@ class ArticleController extends Controller
 
             if($request->file('image')->isValid()){
 
-                $request->file('image')->storeAs('public/articles', 'cover.jpg');
+                $article = Article::create([
+                    'title'=>$request->input('title'),
+                    'content'=>$request->input('content'),
+                ]);
+
+                $article->image = $request->file('image')->storeAs('public/articles' .$article->id, 'cover.jpg');
+                $article->save();
+
 
             }else{
                 return 'Immagine non valida';
@@ -40,13 +47,11 @@ class ArticleController extends Controller
         }else{
             Article::create([
                 'title'=>$request->input('title'),
-               'content'=>$request->input('content')
+                'content'=>$request->input('content'),
             ]);
         }
 
-        
-
-            return redirect()->back()->with(['success'=>'Articolo salvato con successo']);
+        return redirect()->back()->with(['success'=>'Articolo salvato con successo']);
 
         //$validator = Validator::make($request->all(),
         //[
